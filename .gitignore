@@ -1,0 +1,6 @@
+.DS_Store
+nltk_data/
+__pycache__/
+papers/
+run.py
+.obsidian/
