@@ -4,6 +4,7 @@
 import sys
 from pdfminer.high_level import extract_pages
 from pdfminer.layout import LTTextContainer, LTLine, LTChar
+from argument import args
 
 
 def getTitle(filepath, r=1):
@@ -17,7 +18,7 @@ def getTitle(filepath, r=1):
     if not filepath[len(filepath) - 4:len(filepath)] == ".pdf":
         sys.exit("filepath not ending with .pdf")
 
-    data = extractFirstPageElements(filepath)
+    data = extractFirstPageElements(filepath, verbose=args.verbose)
     texts = data[0]
     fonts = data[1]
 
@@ -83,6 +84,8 @@ def extractFirstPageElements(filepath, bold=False, verbose=False):
                         else:
                             if isinstance(character, LTChar):
                                 font_size = character.size
+                                if verbose:
+                                    print(character.get_text())
                                 break  #the first character only, assuming all others in text_line have the same size
                     if bold:
                         bolds.append(is_bold)
